@@ -43,13 +43,8 @@ newgrp docker
 ```
 
 ## Pull From Github
-Make sure you're logged in
 
-```bash
-export CR_PAT=<your PAT>
-echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
-```
-And Pull
+Pull the Image from the Package Registry
 
 ```bash
 docker pull ghcr.io/jordanwmckee/rtsp-server:latest
@@ -120,7 +115,6 @@ Any Combination of those will work
 
 To build this image locally,
 * navigate to the rtsp-server subdirectory 
-* [login](#pull-from-github) to github container registry
 * run the following commands
 
 ```bash
