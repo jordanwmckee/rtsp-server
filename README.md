@@ -95,7 +95,7 @@ following
 rtsp://<ip_of_computer_running_the_container>:8554/<video_name>/<resolution_width>/<fps>/25
     
 # for example, if was running the container and my ip was 192.168.0.0 and I want 
-to stream sample.mp4 with 1920x1080 resolution at 30 fps, I would type
+# to stream sample.mp4 with 1920x1080 resolution at 30 fps, I would type
 # rtsp://192.168.0.0:8554/sample/1920/30/25
 ```
 The 25 at the end represents the compression on the video, which is currently 
