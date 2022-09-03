@@ -12,19 +12,13 @@
 
 ## Description
 
-This tool was created for testing camera connections to VCS Server and for 
-measuring the load that it generates on the server host, eliminating the need 
-for many physical cameras to be configured and connected to the server. 
+This tool was created to easily simulate camera connections to a server through
+an rtsp stream.
 
 It listens on port 8554 of the host machine for rtsp requests at a predefined 
 URL, and begins streaming the desired video to that URL upon these requests.
 
 ### To Begin:
-
-Note: if you have the [vcsdocker 
-script](https://github.com/Acuity-vct/artsentry/tree/main/vcs-docker), you can 
-alternatively run `./vcsdocker --installDocker` and `./vcsdocker --login` 
-instead of running these commands manually
 
 Make sure docker is installed. If not, download it 
 [here](https://docs.docker.com/desktop/windows/install/) (Windows)
@@ -58,7 +52,7 @@ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 And Pull
 
 ```bash
-docker pull ghcr.io/acuity-vct/rtsp-server:latest
+docker pull ghcr.io/jordanwmckee/rtsp-server:latest
 ```
 
 ## Run Image in Container
@@ -71,7 +65,7 @@ Flags
 
 ```bash
 docker run -it --name rtsp -e RTSP_PROTOCOLS=tcp -p 8554:8554 -p 1935:1935 -p 
-8888:8888 ghcr.io/acuity-vct/rtsp-server
+8888:8888 ghcr.io/jordanwmckee/rtsp-server
 ```
 
 <sub>on windows, you need to add `winpty` before "docker"</sub>
@@ -101,8 +95,8 @@ following
 rtsp://<ip_of_computer_running_the_container>:8554/<video_name>/<resolution_width>/<fps>/25
     
 # for example, if was running the container and my ip was 192.168.0.0 and I want 
-to stream fan.mp4 with 1920x1080 resolution at 30 fps, I would type
-# rtsp://192.168.0.0:8554/fan/1920/30/25
+to stream sample.mp4 with 1920x1080 resolution at 30 fps, I would type
+# rtsp://192.168.0.0:8554/sample/1920/30/25
 ```
 The 25 at the end represents the compression on the video, which is currently 
 static
@@ -123,7 +117,6 @@ FPS Options:
 Any Combination of those will work
 
 ## Building Locally
-(Add support for git-lfs on 5/26)
 
 To build this image locally,
 * navigate to the rtsp-server subdirectory 
@@ -141,7 +134,7 @@ docker build -t <image_name>:<tag> -t <image_name>:<latest> .
 [You can use only one tag if you prefer. A solid unique tag could be $(date 
 +%s)]
 
-Then you can [run it](#run-image-in-container) by replacing "rtsp-image" in this 
+Then you can [run it](#run-image-in-container) by replacing "rtsp-server" in this 
 command with your image name
 
 ## Adding Videos
@@ -211,9 +204,6 @@ docker container prune
 
 ## FFMPEG Video Manipulation (Framerate and Resolution):
     ffmpeg -r <fps> -i <inFile> -vf scale=<resWidth>:-1 <outFile>
-[codec install link](https://opensuse-guide.org/codecs.php) (not needed) 
 
 ## Links
 [rtsp-simple-server](https://github.com/aler9/rtsp-simple-server)
-This [link](https://github.com/orgs/acuity-vct/packages/) will take you to 
-Acuity-vct's package repo
