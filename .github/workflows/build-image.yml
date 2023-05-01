@@ -3,25 +3,21 @@ name: RTSP Server Docker Image
 on: [workflow_dispatch]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-      
-    - name: Convert and Build Docker Image
-      run: |
-        mkdir -p all_videos
-        sudo apt install ffmpeg
-        chmod +x auto-convert.sh
-        chmod +x convert.sh
-        ./auto-convert.sh
-        echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
-        docker build -t rtsp-server .
-        docker tag rtsp-server ghcr.io/jordanwmckee/rtsp-server
-        docker push ghcr.io/jordanwmckee/rtsp-server:latest
-      shell: bash
+      - name: Convert and Build Docker Image
+        run: |
+          sudo apt install ffmpeg
+          chmod +x auto-convert.sh
+          chmod +x convert.sh
+          ./auto-convert.sh
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
+          docker build -t rtsp-server .
+          docker tag rtsp-server ghcr.io/jordanwmckee/rtsp-server
+          docker push ghcr.io/jordanwmckee/rtsp-server:latest
+        shell: bash
