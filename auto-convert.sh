@@ -9,4 +9,5 @@ set -o pipefail
 #Uncomment for tracing
 #set -o xtrace
 
+mkdir all_videos
 for FILE in source-videos/*; do ./convert.sh $FILE; done

@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  rtsp:
+    build: .
+    image: rtsp_server
+    container_name: rtsp
+    environment:
+      MTX_PROTOCOLS: tcp
+    ports:
+      - "8554:8554"
+      - "1935:1935"
+      - "8888:8888"

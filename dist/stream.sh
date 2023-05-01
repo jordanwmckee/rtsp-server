@@ -9,8 +9,6 @@ set -o pipefail
 #Uncomment for tracing
 #set -o xtrace
 
-TEMPNAME=$(echo "$1" | tr / _)
-NAME=${TEMPNAME%_*}
+NAME=$(echo "$1" | tr / _)
 
-ffmpeg -re -stream_loop -1 -i videos/${NAME}fps.mp4 -c copy -f rtsp 
-rtsp://localhost:8554/$1
+ffmpeg -re -stream_loop -1 -i videos/${NAME}fps.mp4 -c copy -f rtsp rtsp://localhost:8554/$1
